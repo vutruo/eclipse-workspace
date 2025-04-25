@@ -1,0 +1,54 @@
+package Main;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class LEDTV extends TV {
+    private String displayType;
+
+    public LEDTV(String brand, int size, String displayType) {
+        super(brand, size);
+        this.displayType = displayType;
+    }
+    
+    public LEDTV() {
+		
+	}
+    
+	public String getDisplayType() {
+	  return displayType;
+	}
+	
+	public void setDisplayType(String displayType) {
+	  this.displayType = displayType;
+	}
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Kiểu màn hình: " + displayType);
+    }
+    
+    @Override
+    public void inputData() throws Exception {
+    	super.inputData();
+    	Scanner nhap = new Scanner(System.in);
+    	System.out.print("Nhập loại màn hình của TV: ");
+    	this.displayType = nhap.nextLine();
+    }
+
+    // Ghi dữ liệu ra tệp
+    @Override
+    public void writeToFile(PrintWriter pw) {
+        super.writeToFile(pw);
+        pw.println(displayType);
+    }
+    
+    @Override
+    public void readFromFile(BufferedReader br) throws IOException {
+    	super.readFromFile(br);
+    	this.displayType = br.readLine();
+    }
+}

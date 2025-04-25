@@ -1,0 +1,161 @@
+package Main;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class TV {
+    private String brand;
+    private int size;
+
+    // Hàm khởi tạo
+    public TV(String brand, int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Kích thước TV phải lớn hơn 0.");
+        }
+        this.brand = brand;
+        this.size = size;
+    }
+    
+    public TV() {
+		
+	}
+
+    // Getters
+    public String getBrand() {
+        return brand;
+    }
+
+    public int getSize() {
+        return size;
+    }
+    
+    public void setBrand(String brand) {
+    	this.brand = brand;
+    }
+
+    public void setSize(int size) {
+    	this.size = size;
+    }
+
+    // Hàm xuất thông tin
+    public void displayInfo() {
+        System.out.println("Thương hiệu: " + brand);
+        System.out.println("Kích thước: " + size + " inch");
+    }
+    
+	  public void inputData() {
+	  Scanner scanner = new Scanner(System.in);
+	  System.out.print("Nhập thương hiệu: ");
+	  this.brand = scanner.nextLine();
+	  
+	  while (true) {
+	      try {
+	          System.out.print("Nhập kích thước: ");
+	          this.size = Integer.parseInt(scanner.nextLine());
+	          if (this.size <= 0) {
+	              throw new IllegalArgumentException("Kích thước phải lớn hơn 0.");
+	          }
+	          break; // Thoát vòng lặp nếu nhập hợp lệ
+	      } catch (NumberFormatException e) {
+	          System.out.println("Vui lòng nhập một số hợp lệ.");
+	      } catch (IllegalArgumentException e) {
+	          System.out.println(e.getMessage());
+	      }
+	  }
+	}
+
+    // Nhập dữ liệu từ tệp
+    public void readFromFile(BufferedReader br) throws IOException {
+        this.brand = br.readLine();
+        this.size = Integer.parseInt(br.readLine());
+    }
+
+    // Xuất dữ liệu ra tệp văn bản
+    public void writeToFile(PrintWriter pw) {
+        pw.println(brand);
+        pw.println(size);
+    }
+}
+
+//
+//import java.io.*;
+//import java.util.Scanner;
+//
+//class TV implements Constructor{
+//    private String brand;
+//    private int size;
+//
+//    // Hàm khởi tạo
+//    public TV(String brand, int size) {
+//        this.brand = brand;
+//        this.size = size; 
+//    }
+//    
+//    public TV() {
+//    }
+//
+//    // Getters và Setters
+//    public String getBrand() {
+//        return brand;
+//    }
+//
+//    public void setBrand(String brand) {
+//        this.brand = brand;
+//    }
+//
+//    public int getSize() {
+//        return size;
+//    }
+//
+//    public void setSize(int size) {
+//        this.size = size;
+//    }
+//
+//    // Hàm xuất dữ liệu
+//    public void displayInfo() {
+//        System.out.println("Brand: " + brand);
+//        System.out.println("Size: " + size + " inch");
+//    }
+//
+//    // Hàm nhập dữ liệu
+//    public void inputData() {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.print("Nhập thương hiệu: ");
+//        this.brand = scanner.nextLine();
+//        
+//        while (true) {
+//            try {
+//                System.out.print("Nhập kích thước: ");
+//                this.size = Integer.parseInt(scanner.nextLine());
+//                if (this.size <= 0) {
+//                    throw new IllegalArgumentException("Kích thước phải lớn hơn 0.");
+//                }
+//                break; // Thoát vòng lặp nếu nhập hợp lệ
+//            } catch (NumberFormatException e) {
+//                System.out.println("Vui lòng nhập một số hợp lệ.");
+//            } catch (IllegalArgumentException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//    }
+//
+//    // Nhập dữ liệu từ tệp văn bản
+//    public void readFromFile(BufferedReader br) throws IOException {
+//        this.brand = br.readLine();
+//        this.size = Integer.parseInt(br.readLine());
+//    }
+//
+//    // Xuất dữ liệu ra tệp văn bản
+//    public void writeToFile(PrintWriter pw) {
+//        pw.println(brand);
+//        pw.println(size);
+//    }
+//
+//	@Override
+//	public void chaoNguoiDung() {
+//		// TODO Auto-generated method stub
+//		System.out.println("chào thân chủ của tôi");
+//	}
+//}

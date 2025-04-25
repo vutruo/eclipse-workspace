@@ -1,0 +1,35 @@
+package Main;
+
+public interface Constructor {
+	void chaoNguoiDung();
+}
+
+
+import java.util.Scanner;
+
+public void inputData() {
+    Scanner scanner = new Scanner(System.in);
+    
+    try {
+        System.out.print("Nhập thương hiệu: ");
+        this.brand = scanner.nextLine();
+        
+        while (true) {
+            try {
+                System.out.print("Nhập kích thước: ");
+                this.size = Integer.parseInt(scanner.nextLine());
+                if (this.size <= 0) {
+                    throw new IllegalArgumentException("Kích thước phải lớn hơn 0.");
+                }
+                break; // Thoát vòng lặp nếu nhập hợp lệ
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập một số hợp lệ.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    } finally {
+        // Đóng Scanner nếu không cần thiết ở nơi khác
+        scanner.close();
+    }
+}

@@ -1,0 +1,134 @@
+package Main;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		ArrayList<TV> tvList = new ArrayList<>();
+		Scanner scanner = new Scanner(System.in);
+		int choice;
+
+		do {
+			System.out.println("\nMenu:");
+			System.out.println("1. Thêm SmartTV");
+			System.out.println("2. Thêm LEDTV");
+			System.out.println("3. Hiển thị danh sách TV");
+			System.out.println("4. Xóa TV");
+			System.out.println("5. Tìm kiếm TV");
+			System.out.println("6. Lưu danh sách TV vào tệp văn bản");
+			System.out.println("7. Tải danh sách TV từ tệp văn bản");
+			System.out.println("8. Lưu danh sách TV vào tệp nhị phân");
+			System.out.println("9. Tải danh sách TV từ tệp nhị phân");
+			System.out.println("0. Thoát");
+			System.out.print("Chọn một lựa chọn: ");
+			try {
+				choice = Integer.parseInt(scanner.nextLine());
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Nhập chữ cái rồi. Nhập lại");
+				continue;
+			}
+//			choice = Integer.parseInt(scanner.nextLine());
+			switch (choice) {
+			case 1: {
+				SmartTV smartTV = new SmartTV();
+				smartTV.inputData();
+				tvList.add(smartTV);
+				break;
+			}
+			case 2: {
+				LEDTV ledTV = new LEDTV();
+				ledTV.inputData();
+				tvList.add(ledTV);
+				break;
+			}
+			case 3: {
+				System.out.println("\nDanh sách TV:");
+				for (TV tv : tvList) {
+					tv.displayInfo();
+					System.out.println();
+				}
+				break;
+			}
+			case 4: {
+				System.out.print("Nhập thương hiệu TV cần xóa: ");
+				String brandToRemove = scanner.nextLine();
+				tvList.removeIf(tv -> tv.getBrand().equalsIgnoreCase(brandToRemove));
+				System.out.println("Đã xóa TV có thương hiệu: " + brandToRemove);
+				break;
+			}
+			case 5: {
+				System.out.print("Nhập thương hiệu TV cần tìm: ");
+				String brandToSearch = scanner.nextLine();
+				for (TV tv : tvList) {
+					if (tv.getBrand().equalsIgnoreCase(brandToSearch)) {
+						tv.displayInfo();
+						break;
+					}
+				}
+				break;
+			}
+			case 6: {
+				try (PrintWriter pw = new PrintWriter(new FileWriter("tv_list.txt"))) {
+					for (TV tv : tvList) {
+						tv.writeToFile(pw);
+					}
+					System.out.println("Đã lưu danh sách TV vào tệp văn bản.");
+				} catch (IOException e) {
+					System.out.println("Lỗi khi lưu tệp: " + e.getMessage());
+				}
+				break;
+			}
+			case 7: {
+				try (BufferedReader br = new BufferedReader(new FileReader("tv_list.txt"))) {
+					tvList.clear(); // Xóa danh sách hiện tại
+					String line;
+					while ((line = br.readLine()) != null) {
+						String brand = line;
+						int size = Integer.parseInt(br.readLine());
+						String osOrDisplay = br.readLine(); // Dùng cho SmartTV và LEDTV
+
+						TV tv;
+						if (osOrDisplay != null && !osOrDisplay.isEmpty()) {
+							tv = new SmartTV(brand, size, osOrDisplay);
+						} else {
+							tv = new LEDTV(brand, size, osOrDisplay); // Hoặc một giá trị mặc định
+						}
+						tvList.add(tv);
+					}
+					System.out.println("Đã tải danh sách TV từ tệp văn bản.");
+				} catch (IOException e) {
+					System.out.println("Lỗi khi tải tệp: " + e.getMessage());
+				}
+				break;
+			}
+			case 8: { // Lưu danh sách TV vào tệp nhị phân
+				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("tv_list.dat"))) {
+					oos.writeObject(tvList);
+					System.out.println("Đã lưu danh sách TV vào tệp nhị phân.");
+				} catch (IOException e) {
+					System.out.println("Lỗi khi lưu tệp: " + e.getMessage());
+				}
+				break;
+			}
+			case 9: { // Tải danh sách TV từ tệp nhị phân
+				try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tv_list.dat"))) {
+					tvList = (ArrayList<TV>) ois.readObject();
+					System.out.println("Đã tải danh sách TV từ tệp nhị phân.");
+				} catch (IOException | ClassNotFoundException e) {
+					System.out.println("Lỗi khi tải tệp: " + e.getMessage());
+				}
+				break;
+			}
+			case 0:
+				System.out.println("Thoát chương trình.");
+				break;
+			default:
+				System.out.println("Lựa chọn không hợp lệ.");
+				break;
+			}
+		} while (choice != 0);
+	}
+}

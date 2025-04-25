@@ -1,0 +1,54 @@
+package Main;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class SmartTV extends TV {
+	private String operatingSystem;
+
+	public SmartTV(String brand, int size, String operatingSystem) {
+		super(brand, size);
+		this.operatingSystem = operatingSystem;
+	}
+
+	public SmartTV() {
+
+	}
+
+	public String getOperatingSystem() {
+		return operatingSystem;
+	}
+
+	public void setOperatingSystem(String operatingSystem) {
+		this.operatingSystem = operatingSystem;
+	}
+
+	@Override
+	public void displayInfo() {
+		super.displayInfo();
+		System.out.println("Hệ điều hành: " + operatingSystem);
+	}
+
+	@Override
+	public void inputData(Scanner scanner) {
+		super.inputData(scanner);
+		Scanner nhap = new Scanner(System.in);
+		System.out.print("Nhập hệ điều hành: ");
+		this.operatingSystem = nhap.nextLine();
+	}
+
+	// Ghi dữ liệu ra tệp
+	@Override
+	public void writeToFile(PrintWriter pw) {
+		super.writeToFile(pw);
+		pw.println(operatingSystem);
+	}
+
+	@Override
+	public void readFromFile(BufferedReader br) throws IOException {
+		super.readFromFile(br);
+		this.operatingSystem = br.readLine();
+	}
+}
