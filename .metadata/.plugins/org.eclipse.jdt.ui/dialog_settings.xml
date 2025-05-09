@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item key="org.eclipse.jdt.ui.last.selected.jre.kind2" value="2"/>
+	<item key="org.eclipse.jdt.ui.last.selected.jre.kind2" value="0"/>
 	<item key="org.eclipse.jdt.ui.last.selected.execution.enviroment" value="JavaSE-21"/>
 	<item key="org.eclipse.jdt.ui.last.selected.create.moduleinfo.comments" value="false"/>
 	<item key="org.eclipse.jdt.ui.last.selected.create.moduleinfo" value="true"/>
 	<item key="filters_last_used" value="filter_imports;"/>
 	<item key="org.eclipse.jdt.ui.lastextjar" value="C:\Users\giang\Documents\Zalo Received Files"/>
 	<section name="JavaProjectWizard.dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="8"/>
-		<item key="DIALOG_Y_ORIGIN" value="8"/>
-		<item key="DIALOG_WIDTH" value="746"/>
+		<item key="DIALOG_X_ORIGIN" value="212"/>
+		<item key="DIALOG_Y_ORIGIN" value="12"/>
+		<item key="DIALOG_WIDTH" value="869"/>
 		<item key="DIALOG_HEIGHT" value="728"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
@@ -83,6 +83,16 @@
 		<item key="height" value="400"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item key="pageIndex" value="3"/>
+		<item key="pageIndex" value="2"/>
+	</section>
+	<section name="ClasspathContainerSelectionPage">
+		<item key="index" value="3"/>
+	</section>
+	<section name="org.eclipse.jdt.internal.ui.wizards.buildpaths.NewVariableEntryDialog">
+		<item key="DIALOG_X_ORIGIN" value="199"/>
+		<item key="DIALOG_Y_ORIGIN" value="13"/>
+		<item key="DIALOG_WIDTH" value="577"/>
+		<item key="DIALOG_HEIGHT" value="398"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 </section>

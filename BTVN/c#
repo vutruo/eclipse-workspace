@@ -1,0 +1,90 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        double a = 0, b = 0, c = 0;
+
+        // Nhập và kiểm tra dữ liệu cho a
+        while (true)
+        {
+            try
+            {
+                Console.Write("Nhập a: ");
+                a = Convert.ToDouble(Console.ReadLine());
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("Giá trị nhập không hợp lệ. Vui lòng nhập một số thực.");
+            }
+        }
+
+        // Nhập và kiểm tra dữ liệu cho b
+        while (true)
+        {
+            try
+            {
+                Console.Write("Nhập b: ");
+                b = Convert.ToDouble(Console.ReadLine());
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("Giá trị nhập không hợp lệ. Vui lòng nhập một số thực.");
+            }
+        }
+
+        // Nhập và kiểm tra dữ liệu cho c
+        while (true)
+        {
+            try
+            {
+                Console.Write("Nhập c: ");
+                c = Convert.ToDouble(Console.ReadLine());
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("Giá trị nhập không hợp lệ. Vui lòng nhập một số thực.");
+            }
+        }
+
+        // Giải phương trình bậc hai
+        Console.WriteLine($"\nGiải phương trình: {a}x² + {b}x + {c} = 0");
+
+        if (a == 0)
+        {
+            if (b == 0)
+            {
+                Console.WriteLine(c == 0 ? "Phương trình vô số nghiệm." : "Phương trình vô nghiệm.");
+            }
+            else
+            {
+                double x = -c / b;
+                Console.WriteLine($"Phương trình có một nghiệm: x = {x}");
+            }
+        }
+        else
+        {
+            double delta = b * b - 4 * a * c;
+
+            if (delta > 0)
+            {
+                double x1 = (-b + Math.Sqrt(delta)) / (2 * a);
+                double x2 = (-b - Math.Sqrt(delta)) / (2 * a);
+                Console.WriteLine($"Phương trình có hai nghiệm phân biệt:\nx1 = {x1}\nx2 = {x2}");
+            }
+            else if (delta == 0)
+            {
+                double x = -b / (2 * a);
+                Console.WriteLine($"Phương trình có nghiệm kép: x = {x}");
+            }
+            else
+            {
+                Console.WriteLine("Phương trình vô nghiệm (nghiệm phức).");
+            }
+        }
+    }
+}
