@@ -1,0 +1,66 @@
+package main;
+public class EmailSystem {
+    // Giao diện IEmailService
+    interface IEmailService {
+        boolean sendEmail(String to, String subject, String body);
+    }
+
+    // Lớp SmtpEmailService
+    static class SmtpEmailService implements IEmailService {
+        @Override
+        public boolean sendEmail(String to, String subject, String body) {
+            if (to != null && !to.trim().isEmpty()) {
+                System.out.println("Gửi email tới " + to + " thành công qua SMTP");
+                return true;
+            } else {
+                System.out.println("Địa chỉ email không hợp lệ");
+                return false;
+            }
+        }
+    }
+
+    // Lớp ApiEmailService
+    static class ApiEmailService implements IEmailService {
+        @Override
+        public boolean sendEmail(String to, String subject, String body) {
+            if (to != null && !to.trim().isEmpty()) {
+                System.out.println("Gửi email tới " + to + " thành công qua API");
+                return true;
+            } else {
+                System.out.println("Địa chỉ email không hợp lệ");
+                return false;
+            }
+        }
+    }
+
+    // Lớp EmailNotifier
+    static class EmailNotifier {
+        private final IEmailService emailService;
+
+        public EmailNotifier(IEmailService emailService) {
+            this.emailService = emailService;
+        }
+
+        public void notify(String recipient, String message) {
+            boolean success = emailService.sendEmail(recipient, "Thông báo", message);
+            System.out.println("Kết quả gửi: " + success);
+        }
+    }
+
+    // Hàm main để kiểm thử
+    public static void Main(String[] args) {
+        IEmailService smtpService = new SmtpEmailService();
+        IEmailService apiService = new ApiEmailService();
+
+        EmailNotifier smtpNotifier = new EmailNotifier(smtpService);
+        EmailNotifier apiNotifier = new EmailNotifier(apiService);
+
+        System.out.println("=== Kiểm tra với SMTP ===");
+        smtpNotifier.notify("user@example.com", "Chào bạn!");
+        smtpNotifier.notify("", "Chào bạn!");
+
+        System.out.println("=== Kiểm tra với API ===");
+        apiNotifier.notify("user@example.com", "Chào bạn!");
+        apiNotifier.notify("", "Chào bạn!");
+    }
+}

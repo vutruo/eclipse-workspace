@@ -1,0 +1,84 @@
+package main;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Main {
+
+    static final int N = 100;
+    static int[] A = new int[N];
+    static final List<Integer> results = new ArrayList<>();
+
+    // Kiểm tra số chính phương
+    public static boolean isPerfectSquare(int n) {
+        int sqrt = (int) Math.sqrt(n);
+        return sqrt * sqrt == n;
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        // Tạo mảng ngẫu nhiên
+        Random rand = new Random();
+        for (int i = 0; i < N; i++) {
+            A[i] = rand.nextInt(100) + 1;
+        }
+
+        System.out.println("Mảng A:");
+        for (int x : A) {
+            System.out.print(x + " ");
+        }
+        System.out.println("\n");
+
+        // === Chạy bằng 2 luồng (đa luồng) ===
+        long startMulti = System.nanoTime();
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < N / 2; i++) {
+                if (isPerfectSquare(A[i])) {
+                    synchronized (results) {
+                        results.add(A[i]);
+                        //System.out.println("T1 found perfect square at index " + i + ": " + A[i]);
+                    }
+                }
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = N / 2; i < N; i++) {
+                if (isPerfectSquare(A[i])) {
+                    synchronized (results) {
+                        results.add(A[i]);
+                       // System.out.println("T2 found perfect square at index " + i + ": " + A[i]);
+                    }
+                }
+            }
+        });
+
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+
+        long endMulti = System.nanoTime();
+        double durationMultiMs = (endMulti - startMulti) / 1_000_000.0;
+
+        System.out.println("\n>> Tổng số lượng số chính phương (đa luồng): " + results.size());
+        System.out.printf(">> Thời gian chạy đa luồng: %.3f ms%n", durationMultiMs);
+
+        // === Chạy bằng 1 luồng (đơn luồng) ===
+        long startSingle = System.nanoTime();
+
+        List<Integer> resultSingle = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            if (isPerfectSquare(A[i])) {
+                resultSingle.add(A[i]);
+            }
+        }
+
+        long endSingle = System.nanoTime();
+        double durationSingleMs = (endSingle - startSingle) / 1_000_000.0;
+
+        System.out.println("\n>> Tổng số lượng số chính phương (một luồng): " + resultSingle.size());
+        System.out.printf(">> Thời gian chạy một luồng: %.3f ms%n", durationSingleMs);
+    }
+}
